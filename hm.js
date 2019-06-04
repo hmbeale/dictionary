@@ -6,6 +6,7 @@ randKey = randWord.randKey;
 randKeyProperty = randWord.randKeyProperty;
 
 let wrongGuesses = 0;
+const allowedMistakes = 6;
 
 const toArray = (string) => {
   let arr = [];
@@ -14,7 +15,6 @@ const toArray = (string) => {
   }
   return arr;
 }
-
 const genGuessTracker = (length) => {
   let response = [];
   for (i = 0; i<length; i++){
@@ -22,12 +22,8 @@ const genGuessTracker = (length) => {
   }
   return response;
 }
-console.log(randKeyProperty);
-//console.log(randKey);
 const randKeyArr = toArray(randKey);
-//console.log(randKeyArr);
 guessTracker = genGuessTracker(randKeyArr.length);
-
 const updateTracker = (arr, element) => {
   let correctGuess = false;
   for (i = 0; i<arr.length; i++){
@@ -40,7 +36,6 @@ const updateTracker = (arr, element) => {
     wrongGuesses++;
   }
 }
-
 //sees if all asterisks have been replaced with correct guesses
 const checkCompletion = (arr) => {
   for (i = 0; i<arr.length; i++){
@@ -56,7 +51,7 @@ console.log(guessTracker);
 stdin.addListener("data", function(d) {
     updateTracker(randKeyArr, d.trim().toUpperCase());
     //console.log(wrongGuesses);
-    console.log('incorrect guesses remaining ' + (5-wrongGuesses));
+    console.log('incorrect guesses remaining ' + (allowedMistakes-wrongGuesses));
     console.log(guessTracker);
 
     if (checkCompletion(guessTracker)){
@@ -66,7 +61,7 @@ stdin.addListener("data", function(d) {
       process.exit();
     }
 
-    if (wrongGuesses>=5){
+    if (wrongGuesses>=allowedMistakes){
       console.log('you are out of guesses');
       console.log('the word was ' + randKey);
       console.log(randKeyProperty);

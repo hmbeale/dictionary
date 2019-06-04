@@ -13,8 +13,5 @@ const randomKey = (obj) => {
 const randKey = randomKey(dictionary);
 const randKeyProperty = dictionary[randKey];
 
-//console.log(randKey);
-//console.log(randKeyProperty);
-
 exports.randKey = randKey;
 exports.randKeyProperty = randKeyProperty;
